@@ -3,6 +3,29 @@ import { createRoot } from "react-dom/client";
 
 import "./styles.css";
 
+const socialMedia = [
+  {
+    icon: "fa-facebook",
+    href: "https://www.facebook.com",
+  },
+  {
+    icon: "fa-instagram",
+    href: "https://www.instagram.com",
+  },
+  {
+    icon: "fa-twitter",
+    href: "https://www.twitter.com",
+  },
+  {
+    icon: "fa-linkedin",
+    href: "https://www.linkedin.com/in",
+  },
+  {
+    icon: "fa-github",
+    href: "https://www.github.com/in",
+  },
+];
+
 function App() {
   return (
     <div className="card">
@@ -18,25 +41,30 @@ function App() {
   );
 }
 
-function SocialButtons({ icon }) {
+function SocialButtons({ icon, link }) {
   return (
-    <button>
+    <button onClick={() => window.open(link, "_blank")}>
       <i className={`fa ${icon}`}></i>
     </button>
   );
 }
 
 function Header() {
+  const middleIndex = Math.floor(socialMedia.length / 2);
+  const socialLeft = socialMedia.slice(0, middleIndex);
+  const socialRight = socialMedia.slice(middleIndex);
+
   return (
     <>
       <div className="social-buttons">
-        <SocialButtons icon="fa-facebook" />
-        <SocialButtons icon="fa-twitter" />
-        <SocialButtons icon="fa-instagram" />
+        {socialLeft.map((data, index) => (
+          <SocialButtons key={index} icon={data.icon} link={data.href} />
+        ))}
       </div>
       <div className="social-buttons right">
-        <SocialButtons icon="fa-linkedin" />
-        <SocialButtons icon="fa-github" />
+        {socialRight.map((data, index) => (
+          <SocialButtons key={index} icon={data.icon} link={data.href} />
+        ))}
       </div>
     </>
   );
